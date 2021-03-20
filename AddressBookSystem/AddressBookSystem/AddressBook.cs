@@ -31,7 +31,7 @@ namespace AddressBookSystem
             Console.WriteLine("Enter Email:");
             person.email = Console.ReadLine();
 
-            List<Contact> book = new List<Contact>();
+            List<Contact> book = Program.addressBookStore[bookName];
             book.Add(person);
             Console.WriteLine("***************************************");
             Console.WriteLine("Your Record Added To :[" + bookName + " Book]");
@@ -39,8 +39,7 @@ namespace AddressBookSystem
 
 
         }
+      
+
     }
 }
-
-    
-
