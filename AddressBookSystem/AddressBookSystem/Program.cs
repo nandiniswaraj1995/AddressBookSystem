@@ -20,6 +20,11 @@ namespace AddressBookSystem
             Console.WriteLine("Enter Person's FirstName to edit data:");
             string recordNameToEdit = Console.ReadLine();
             AddressBook.edit(bookNameHasReocrd, recordNameToEdit);
+            Console.WriteLine("Enter the book name in which you want to Delete data:");
+            string bookName1 = Console.ReadLine();
+            AddressBook.delete(bookName1);
+
+
 
 
 

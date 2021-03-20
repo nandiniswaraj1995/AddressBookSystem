@@ -129,11 +129,37 @@ namespace AddressBookSystem
             {
                 Console.WriteLine("No Such BookAddress Found");
             }
-
-
-
         }
 
 
+        public static void delete(string bookName)
+        {
+            if (Program.addressBookStore.ContainsKey(bookName))
+            {
+                List<Contact> book = Program.addressBookStore[bookName];
+                Console.WriteLine("Enter First Name Of Person:");
+                string name = Console.ReadLine();
+
+                foreach (Contact record in book)
+                {
+                    if (book.Contains(record))
+                    {
+                        if (record.first_name.Equals(name))
+                        {
+
+                            Console.WriteLine("Record Deleted");
+                            book.Remove(record);
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Book Not Found!");
+            }
+                
+            
+        }
     }
 }
