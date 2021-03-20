@@ -5,7 +5,7 @@ namespace AddressBookSystem
 {
    public  class Program
     {
-       public static  Dictionary<string, Contact> addressBookStore = new Dictionary<string, Contact>();
+       public static  Dictionary<string, List<Contact>> addressBookStore = new Dictionary<string, List<Contact>>();
         static void Main(string[] args)
         {
 
@@ -14,9 +14,6 @@ namespace AddressBookSystem
             Console.WriteLine("Enter the book name you want to store");
             string bookName = Console.ReadLine();
             AddressBook.addBook(bookName);
-            Console.WriteLine("Enter the book name in which you want to Edit data:");
-            string bookNameHasReocrd = Console.ReadLine();
-            AddressBook.edit(bookNameHasReocrd);
-        }
+          }
     }
 }
