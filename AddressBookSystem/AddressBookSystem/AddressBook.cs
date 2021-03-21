@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookSystem
@@ -9,7 +10,6 @@ namespace AddressBookSystem
 
         public static void addBook(string bookName)
         {
-            int flag = 0;
             if (!Program.addressBookStore.ContainsKey(bookName))
             {
                 Program.addressBookStore.Add(bookName, new List<Contact>());
@@ -34,25 +34,18 @@ namespace AddressBookSystem
             person.email = Console.ReadLine();
 
             List<Contact> book = Program.addressBookStore[bookName];
-                foreach (Contact record in book)
-                {
-                    if (record.first_name == person.first_name)
-                    {
-                        Console.WriteLine("Person Already exist");
-                       flag = 1;
-                        break;
-                    }
-                }
-            if (flag == 0)
+            if (book.Exists(x => x.Equals(person.first_name)))
             {
-                book.Add(person);
+                Console.WriteLine("Person Allready exist");
+            }
+            else 
+            { 
+            book.Add(person);
                 Console.WriteLine("***************************************");
                 Console.WriteLine("Your Record Added To :[" + bookName + " Book]");
                 Console.WriteLine(person.toString());
-
-
             }
-
+            
         }   
             
            
@@ -62,15 +55,12 @@ namespace AddressBookSystem
             if (Program.addressBookStore.ContainsKey(bookName))
             {
                 List<Contact> book = Program.addressBookStore[bookName];
+                    if (book.Exists(x => x.Equals(recordNameToEdit)))
+                     {
+                    Contact record = book.Find(x => x.Equals(recordNameToEdit));
+                    Console.WriteLine("Select Which Data You Want To Update \n1.First_Name \n2.Last_Name \n3.Address" +
+                                         "\n4.City \n5.State \n6.Zip \n7.PhoneNumber \n8.Email");
 
-                foreach (Contact record in book)
-                {
-                    if (book.Contains(record))
-                    {
-                        if (record.first_name == recordNameToEdit)
-                        {
-                            Console.WriteLine("Select Which Data You Want To Update \n1.First_Name \n2.Last_Name \n3.Address" +
-                                                   "\n4.City \n5.State \n6.Zip \n7.PhoneNumber \n8.Email");
                             string selection = Console.ReadLine();
                             string newData;
                             switch (selection)
@@ -134,15 +124,12 @@ namespace AddressBookSystem
                                 default:
                                     Console.WriteLine("Invalid Selection Input");
                                     break;
-                            }
-                            break;
-                        }
+                            }                         
+                       }
                         else
                         {
-                            Console.WriteLine("First_Name: " + record.first_name + " not Exist");
+                            Console.WriteLine("First_Name: " + recordNameToEdit + " not Exist");
                         }
-                    }
-                }
             }
             else
             {
@@ -158,27 +145,26 @@ namespace AddressBookSystem
                 List<Contact> book = Program.addressBookStore[bookName];
                 Console.WriteLine("Enter First Name Of Person:");
                 string name = Console.ReadLine();
-
-                foreach (Contact record in book)
-                {
-                    if (book.Contains(record))
-                    {
-                        if (record.first_name.Equals(name))
-                        {
-
-                            Console.WriteLine("Record Deleted");
+                Contact record = book.Find(x => x.Equals(name));
+                   
+                if(book.Exists(x => x.Equals(name)))
+                { 
+                        Console.WriteLine("Record Deleted");
                             book.Remove(record);
-                            break;
-                        }
-                    }
                 }
-            }
+                else
+                {
+                    Console.WriteLine("Person not Exist!");
+                }
+            }            
             else
             {
                 Console.WriteLine("Book Not Found!");
             }
-                
-            
         }
+
+
+
+
     }
 }

@@ -21,6 +21,11 @@ namespace AddressBookSystem
        "\nZIP: " + zip + "\nPhone_Number: " + phone_number + " \nEmail: " + email;
 
         }
+        public  bool Equals(string name)
+        {
+            return this.first_name == name;
+        }
+
 
     }
 }
