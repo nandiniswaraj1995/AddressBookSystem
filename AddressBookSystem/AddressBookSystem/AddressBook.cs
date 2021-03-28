@@ -170,14 +170,32 @@ namespace AddressBookSystem
             {
                 record = Program.addressBookStore[bookName];
                 foreach (Contact person in record)
-                {
+                  {
                     if (record.Exists(x => x.city == cityOrState || x.state == cityOrState))
                     {
                         Console.WriteLine("Book Name : " + bookName);
                         Console.WriteLine("All Details :" + person.toString());
                     }
+                  }
+            }
+        }
+
+        public static int searchNumberOfPersonUsingCityOrStateInMultipleBooks(string cityOrState)
+        {
+            int count = 0;
+            List<Contact> record = new List<Contact>();
+            foreach (string bookName in Program.addressBookStore.Keys)
+            {
+                record = Program.addressBookStore[bookName];
+                foreach (Contact person in record)
+                {
+                    if (person.city == cityOrState || person.state == cityOrState)//.Exists(x => x.city == cityOrState || x.state == cityOrState))
+                    {
+                        count++;
+                    }
                 }
             }
+            return count;
         }
 
 

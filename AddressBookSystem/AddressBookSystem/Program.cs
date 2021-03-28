@@ -19,9 +19,11 @@ namespace AddressBookSystem
                 Console.WriteLine("2.Edit Existing Contact");
                 Console.WriteLine("3.Delete Person Details");
                 Console.WriteLine("5.Search persons using city or state");
+                Console.WriteLine("6.Search Number of persons in city or state");
                 Console.WriteLine("4.close");
                 choice = Convert.ToInt32(Console.ReadLine());
 
+                
                 switch (choice)
                 {
                     case 1:
@@ -47,6 +49,12 @@ namespace AddressBookSystem
                     case 5: Console.WriteLine("Enter city or state to find a person");
                         string cityOrState = Console.ReadLine();
                         AddressBook.searchPersonUsingCityOrStateInMultipleBooks(cityOrState);
+                        break;
+                    case 6:
+                        Console.WriteLine("Enter city or state to get total number of persons");
+                        string cityOrState1 = Console.ReadLine();
+                        int numberOfPerson = AddressBook.searchNumberOfPersonUsingCityOrStateInMultipleBooks(cityOrState1);
+                        Console.WriteLine("Total number of persons are :"+ numberOfPerson);
                         break;
                     default:
                         Console.WriteLine("Invalid choice !");
