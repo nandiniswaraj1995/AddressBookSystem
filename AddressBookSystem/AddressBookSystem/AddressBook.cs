@@ -198,6 +198,27 @@ namespace AddressBookSystem
             return count;
         }
 
+        public static void PrintNameInAlphabeticalOrder(string bookName)
+        {
+            if (Program.addressBookStore.ContainsKey(bookName))
+            {
+                List<Contact> book = Program.addressBookStore[bookName];
+               //   book.Sort((x, y) => string.Compare(x.first_name, y.first_name));
+
+                // book.Sort();
+                Console.WriteLine("Book Name : " + bookName);
+                var peopleInOrder = book.OrderBy(person => person.first_name);
+                foreach (Contact person in peopleInOrder)
+                {
+                    Console.WriteLine("All Details :" + person.toString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("Book Not Found!");
+            }
+        }
+
 
 
     }
