@@ -189,7 +189,7 @@ namespace AddressBookSystem
                 record = Program.addressBookStore[bookName];
                 foreach (Contact person in record)
                 {
-                    if (person.city == cityOrState || person.state == cityOrState)//.Exists(x => x.city == cityOrState || x.state == cityOrState))
+                    if (person.city == cityOrState || person.state == cityOrState)
                     {
                         count++;
                     }
@@ -204,8 +204,6 @@ namespace AddressBookSystem
             {
                 List<Contact> book = Program.addressBookStore[bookName];
                //   book.Sort((x, y) => string.Compare(x.first_name, y.first_name));
-
-                // book.Sort();
                 Console.WriteLine("Book Name : " + bookName);
                 var peopleInOrder = book.OrderBy(person => person.first_name);
                 foreach (Contact person in peopleInOrder)
@@ -216,6 +214,48 @@ namespace AddressBookSystem
             else
             {
                 Console.WriteLine("Book Not Found!");
+            }
+        }
+
+        public static void sortEntriesInAlphabeticalOrderUsingCityStateOrZip(string cityOrStateOrZip,string bookName)
+        {
+           if (Program.addressBookStore.ContainsKey(bookName))
+            {
+                List<Contact> record = Program.addressBookStore[bookName];
+                Console.WriteLine("Book Name : " + bookName);
+               // var orderedRecords = record.OrderBy(c => c.city).ThenBy(c => c.state).ThenBy(c => c.zip);
+                switch (cityOrStateOrZip)
+                {
+                    case "city":
+                        var orderedRecords1 = record.OrderBy(person => person.city);
+                        foreach (Contact person in orderedRecords1)
+                        {
+                            Console.WriteLine("All Details :" + person.toString());
+                        }
+                        break;
+                    case "state":
+                        var orderedRecords2 = record.OrderBy(person => person.state);
+                        foreach (Contact person in orderedRecords2)
+                        {
+                            Console.WriteLine("All Details :" + person.toString());
+                        }
+                        break;
+                    case "zip":
+                        var orderedRecords3 = record.OrderBy(person => person.zip);
+                        foreach (Contact person in orderedRecords3)
+                        {
+                            Console.WriteLine("All Details :" + person.toString());
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice");
+                        break;
+
+                }
+              }
+            else
+            {
+                Console.WriteLine("Book not found!");
             }
         }
 

@@ -21,6 +21,7 @@ namespace AddressBookSystem
                 Console.WriteLine("5.Search persons using city or state");
                 Console.WriteLine("6.Search Number of persons in city or state");
                 Console.WriteLine("7.Enter name of the address book you want to  record in sorting order");
+                Console.WriteLine("8.To ordered the record by city or state or zip Please enter book name");
                 Console.WriteLine("4.close");
                 choice = Convert.ToInt32(Console.ReadLine());
 
@@ -61,6 +62,13 @@ namespace AddressBookSystem
                         Console.WriteLine("Enter name of the address book you want to  record in sorting order");
                         String bookName2 = Console.ReadLine();
                         AddressBook.PrintNameInAlphabeticalOrder(bookName2);
+                        break;
+                    case 8:
+                        Console.WriteLine("8.To ordered the record by city or state or zip Please enter any one city,state or zip");
+                        String cityOrStateOrZip = Console.ReadLine();
+                        Console.WriteLine("Enter bookName");
+                        string bookName3 = Console.ReadLine();
+                        AddressBook.sortEntriesInAlphabeticalOrderUsingCityStateOrZip(cityOrStateOrZip,bookName3);
                         break;
 
                     default:
