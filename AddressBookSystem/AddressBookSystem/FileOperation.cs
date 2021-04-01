@@ -1,6 +1,9 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookSystem
@@ -45,6 +48,7 @@ namespace AddressBookSystem
                 {
                     using (StreamWriter sr = File.AppendText(path))
                     {
+
                         Console.WriteLine("Book Name");
                         sr.Write("Book Name  : ");
                         string bookName = Console.ReadLine();
@@ -78,8 +82,46 @@ namespace AddressBookSystem
     }
 
 
+        public static void ReadFromCSVReader()
+        {
+            string importFilePath = "E:\\AddressBook\\AddressBookSystem\\AddressBookSystem\\AddressBookSystem\\ContactData.csv";
+            string exportFilePath = "E:\\AddressBook\\AddressBookSystem\\AddressBookSystem\\AddressBookSystem\\exportData.csv";
+
+            using (var reader = new StreamReader(importFilePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Contact>().ToList();
+                Console.WriteLine("Read data successfully from contaceData csv.");
+                foreach (Contact contactData in records)
+                { 
+                    Console.Write("\t" + contactData.first_name);
+                    Console.Write("\t" + contactData.last_name);
+                    Console.Write("\t" + contactData.address);
+                    Console.Write("\t" + contactData.city);
+                    Console.Write("\t" + contactData.state);
+                    Console.Write("\t" + contactData.zip);
+                    Console.Write("\t" + contactData.phone_number);
+                    Console.Write("\t" + contactData.email);
+                    Console.WriteLine();
+                    Console.WriteLine("*******************************Readin from csv file and Write to csv file **********************************");
+                    //Writing csv file
+
+                    using (var writer = new StreamWriter(exportFilePath))
+                    using (var csvExport = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                    {
+                        csvExport.WriteRecords(records);
+                    }
+                }
+            }
+        }
+
+
+
+    }
+
+
 
 
 
 }
-}
+
