@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -32,15 +35,16 @@ namespace AddressBookSystem
             person.phone_number = Console.ReadLine();
             Console.WriteLine("Enter Email:");
             person.email = Console.ReadLine();
-
+           
             List<Contact> book = Program.addressBookStore[bookName];
             if (book.Exists(x => x.Equals(person.first_name)))
             {
                 Console.WriteLine("Person Allready exist");
             }
-            else 
-            { 
-            book.Add(person);
+            else
+            {
+                book.Add(person);
+               
                 Console.WriteLine("***************************************");
                 Console.WriteLine("Your Record Added To :[" + bookName + " Book]");
                 Console.WriteLine(person.toString());

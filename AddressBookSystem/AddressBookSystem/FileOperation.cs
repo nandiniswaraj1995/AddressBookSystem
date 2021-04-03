@@ -1,4 +1,6 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +12,7 @@ namespace AddressBookSystem
 {
     public class FileOperation
     {
-       
+
         public static void ReadFromStreamReader()
         {
             String path = "E:\\AddressBook\\AddressBookSystem\\AddressBookSystem\\AddressBookSystem\\AddreddBook.txt";
@@ -32,7 +34,7 @@ namespace AddressBookSystem
                     throw new AddressBookException(AddressBookException.ExceptionType.FILE_NOT_EXIST, "File Not Exists");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -61,7 +63,7 @@ namespace AddressBookSystem
                         sr.Write("Last Name  : ");
                         string lname = Console.ReadLine();
                         sr.WriteLine(lname);
-                      
+
                         sr.Close();
                         Console.WriteLine(File.ReadAllText(path));
                     }
@@ -73,13 +75,13 @@ namespace AddressBookSystem
 
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
-            
-    }
+
+        }
 
 
         public static void ReadFromCSVReader()
@@ -93,7 +95,7 @@ namespace AddressBookSystem
                 var records = csv.GetRecords<Contact>().ToList();
                 Console.WriteLine("Read data successfully from contaceData csv.");
                 foreach (Contact contactData in records)
-                { 
+                {
                     Console.Write("\t" + contactData.first_name);
                     Console.Write("\t" + contactData.last_name);
                     Console.Write("\t" + contactData.address);
@@ -115,13 +117,75 @@ namespace AddressBookSystem
             }
         }
 
+        static string jsonFilePath = "E:\\AddressBook\\AddressBookSystem\\AddressBookSystem\\AddressBookSystem\\jsonFile.json";
+
+        public static void ReadFromJSONFile()
+        {
+            
+
+             var jsonData = File.ReadAllText(jsonFilePath);
+            /*  if (jsonData.Length > 0)
+              {
+                  Contact contact = JsonConvert.DeserializeObject<Contact>(jsonData);
+                Console.WriteLine(contact);
+               }
+              else
+                  Console.WriteLine("No Data Avalaible!");*/
+            Console.WriteLine(jsonData);
+          
+        }
+
+
+
+
+        public static void WriteIntoJSONFile()
+        {
+
+            Contact person = new Contact();
+            Console.WriteLine("Enter All Details Like: ");
+            Console.WriteLine("Enter First_Name: ");
+            person.first_name = Console.ReadLine();
+            Console.WriteLine("Enter Last Name:");
+            person.last_name = Console.ReadLine();
+            Console.WriteLine("Enter Addree :");
+            person.address = Console.ReadLine();
+            Console.WriteLine("Enter City Name:");
+            person.city = Console.ReadLine();
+            Console.WriteLine("Enter State Name:");
+            person.state = Console.ReadLine();
+            Console.WriteLine("Enter pin Number:");
+            person.zip = Console.ReadLine();
+            Console.WriteLine("Enter Phone Number:");
+            person.phone_number = Console.ReadLine();
+            Console.WriteLine("Enter Email:");
+            person.email = Console.ReadLine();         
+                        
+               
+         //   string jsonFilePath = "E:\\AddressBook\\AddressBookSystem\\AddressBookSystem\\AddressBookSystem\\jsonFile.json";
+            var jsonData = JsonConvert.SerializeObject(person);
+            if (File.Exists(jsonFilePath))
+            {
+                File.AppendAllText(jsonFilePath, jsonData + Environment.NewLine);
+            }
+            else
+            {
+                Console.WriteLine("File doesn't exists");
+            }
+
+          
+
+        }
+
+
+
+
+
+
+
 
 
     }
 
 
-
-
-
-}
+    }
 
